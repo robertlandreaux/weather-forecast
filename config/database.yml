@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  url: <%= ENV['DATABASE_URL'] %>
+  variables:
+    statement_timeout: 60000
+
+development_default: &development_default
+  <<: *default
+  port: <%= ENV.fetch('POSTGRES_PORT') { 5432 } %>
+  host: localhost
+
+development:
+  <<: *development_default
+  database: forecast_local
+
+test:
+  <<: *development_default
+  database: forecast_test
+
+production:
+  <<: *default
+  database: forecast_production
