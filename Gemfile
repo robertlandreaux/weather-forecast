@@ -11,9 +11,9 @@ gem 'sprockets-rails'
 
 group :development, :test do
   gem 'byebug'
+  gem 'factory_bot_rails'
   gem 'pry'
   gem 'pry-stack_explorer'
-  gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'rubocop', require: false
 end
