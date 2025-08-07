@@ -7,22 +7,21 @@ gem "dotenv"
 gem "pg"
 gem "puma"
 gem "rails"
-gem "sprockets-rails"
+gem "propshaft"
+gem "solid_queue"
+gem "bootsnap", require: false
+gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development, :test do
-  gem "byebug"
   gem "factory_bot_rails"
-  gem "pry"
-  gem "pry-stack_explorer"
   gem "rspec-rails"
   gem "standard"
   gem "standard-rails"
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "brakeman", require: false
 end
 
 group :development do
-  gem "better_errors"
-  gem "bootsnap", require: false
-  gem "listen"
   gem "web-console"
 end
 
