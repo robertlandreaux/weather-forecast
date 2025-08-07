@@ -1,4 +1,4 @@
-forequire 'rails_helper'
+forequire "rails_helper"
 
 RSpec.describe Forecast, type: :model do
 end

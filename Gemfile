@@ -1,30 +1,31 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.5'
+ruby "3.4.5"
 
-gem 'dotenv'
-gem 'pg'
-gem 'puma'
-gem 'rails'
-gem 'sprockets-rails'
+gem "dotenv"
+gem "pg"
+gem "puma"
+gem "rails"
+gem "sprockets-rails"
 
 group :development, :test do
-  gem 'byebug'
-  gem 'factory_bot_rails'
-  gem 'pry'
-  gem 'pry-stack_explorer'
-  gem 'rspec-rails'
-  gem 'rubocop', require: false
+  gem "byebug"
+  gem "factory_bot_rails"
+  gem "pry"
+  gem "pry-stack_explorer"
+  gem "rspec-rails"
+  gem "standard"
+  gem "standard-rails"
 end
 
 group :development do
-  gem 'better_errors'
-  gem 'bootsnap', require: false
-  gem 'listen'
-  gem 'web-console'
+  gem "better_errors"
+  gem "bootsnap", require: false
+  gem "listen"
+  gem "web-console"
 end
 
 group :test do
-  gem 'faker'
+  gem "faker"
 end
