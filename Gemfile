@@ -12,6 +12,9 @@ gem "solid_queue"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
+gem 'faraday'
+gem 'faraday-retry'
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
