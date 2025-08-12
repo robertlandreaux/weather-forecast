@@ -2,5 +2,5 @@
 
 Dotenv.require_keys(
   "RAILS_MAX_THREADS",
-  "DATABASE_URL"
+  "REDIS_URL"
 )

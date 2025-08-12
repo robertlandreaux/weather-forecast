@@ -8,7 +8,6 @@ gem "pg"
 gem "puma"
 gem "rails"
 gem "propshaft"
-gem "solid_queue"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[windows jruby]
 
@@ -18,6 +17,8 @@ gem "faraday-retry"
 gem "rack-cors"
 
 gem "redis"
+
+gem "sidekiq"
 
 group :development, :test do
   gem "factory_bot_rails"
