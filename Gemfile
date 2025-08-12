@@ -10,19 +10,21 @@ gem "rails"
 gem "propshaft"
 gem "solid_queue"
 gem "bootsnap", require: false
-gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
-gem 'faraday'
-gem 'faraday-retry'
+gem "faraday"
+gem "faraday-retry"
 
-gem 'rack-cors'
+gem "rack-cors"
+
+gem "redis"
 
 group :development, :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
   gem "standard"
   gem "standard-rails"
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "brakeman", require: false
 end
 
