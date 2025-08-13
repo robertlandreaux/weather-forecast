@@ -20,6 +20,10 @@ gem "redis"
 
 gem "sidekiq"
 
+gem "sentry-ruby"
+gem "sentry-rails"
+gem "sentry-sidekiq"
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
