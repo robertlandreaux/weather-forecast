@@ -1,0 +1,2 @@
+---
+authentication: <%= ENV.fetch("SKYLIGHT_AUTH_TOKEN") { nil } %>
