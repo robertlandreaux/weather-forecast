@@ -14,6 +14,8 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "faraday"
 gem "faraday-retry"
 
+gem "rails_event_store"
+
 gem "rack-cors"
 
 gem "redis"
