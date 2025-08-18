@@ -22,20 +22,41 @@ default: &default
     statement_timeout: <%= ENV.fetch("STATEMENT_TIMEOUT") { nil } %>
     idle_in_transaction_session_timeout: <%= ENV.fetch("IDLE_IN_TRANSACTION_SESSION_TIMEOUT") { nil } %>
 
-development:
+development_primary_default: &development_primary_default
   <<: *default
-  database: weather_forecast_development
+  database: <%= ENV.fetch("POSTGRES_DB_PRIMARY") { "weather_forecast_development" } %>
   port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
-  database: <%= ENV.fetch("POSTGRES_DB") { "weather_forecast_development" } %>
-  username: <%= ENV.fetch("POSTGRES_USER") { "weather_forecast" } %>
+  username: <%= ENV.fetch("POSTGRES_USER") { nil } %>
   password: <%= ENV.fetch("POSTGRES_PASSWORD") { nil } %>
   host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
+  migrations_paths: db/primary
+
+development_wf_logs_default: &development_wf_logs_default
+  <<: *default
+  database: <%= ENV.fetch("POSTGRES_DB_WF_LOG") { "wf_logs_development" } %>
+  port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
+  username: <%= ENV.fetch("POSTGRES_USER") { nil } %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") { nil } %>
+  host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
+  migration_paths: db/wf_logs
+
+development:
+  primary:
+    <<: *development_primary_default
+  wf_logs:
+    <<: *development_wf_logs_default
 
 test:
-  <<: *default
-  database: weather_forecast_test
+  primary:
+    <<: *development_primary_default
+  wf_logs:
+    <<: *development_wf_logs_default
+
 
 production:
   primary: &default
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
+  wf_logs:
+    url: <%= ENV["DATABASE_URL_WF_LOGS"] %>
+    migration_paths: db/wf_logs

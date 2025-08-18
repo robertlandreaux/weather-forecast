@@ -1,2 +1,2 @@
-class Forecast < ApplicationRecord
+class Forecast < PrimaryApplicationRecord
 end

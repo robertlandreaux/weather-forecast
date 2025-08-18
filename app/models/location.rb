@@ -1,2 +1,2 @@
-class Location < ApplicationRecord
+class Location < PrimaryApplicationRecord
 end
