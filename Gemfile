@@ -43,4 +43,5 @@ end
 
 group :test do
   gem "faker"
+  gem "ruby_event_store-rspec"
 end
