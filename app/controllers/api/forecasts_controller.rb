@@ -1,5 +1,5 @@
 module Api
-  class ForecastsController < ActionController::Base
+  class ForecastsController < ApplicationController
     def show
     end
   end
