@@ -5,3 +5,6 @@ ignore:
   - 'log/**/*'
   - 'tmp/**/*'
   - 'vendor/**/*'
+
+inherit_gem:
+  test-prof: config/rubocop-rspec.yml

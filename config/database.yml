@@ -35,8 +35,11 @@ development:
 test:
   primary:
     <<: *development_primary_default
+    database: <%= ENV.fetch("POSTGRES_TEST_DB_PRIMARY") { "weather_forecast_test" } %>
   wf_logs:
     <<: *development_wf_logs_default
+    database: <%= ENV.fetch("POSTGRES_TEST_DB_WF_LOG") { "wf_logs_test" } %>
+
 
 
 production:

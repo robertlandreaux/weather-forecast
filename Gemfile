@@ -22,6 +22,8 @@ gem "redis"
 
 gem "sidekiq"
 
+gem "geocoder"
+
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "sentry-sidekiq"
@@ -44,4 +46,5 @@ end
 group :test do
   gem "faker"
   gem "ruby_event_store-rspec"
+  gem "test-prof"
 end
