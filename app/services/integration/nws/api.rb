@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Integration
   NWS_HOSTNAME = "api.weather.gov"
   USER_AGENT = ENV.fetch("NWS_USER_AGENT", "testing")

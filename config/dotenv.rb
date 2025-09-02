@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 if Rails.env.local?
   Dotenv.require_keys(
     "RAILS_MAX_THREADS",

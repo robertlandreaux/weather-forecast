@@ -1,6 +1,6 @@
 require "rails_helper"
 RSpec.describe Integration::Geocoder::GeocodeLocationJob, type: :job do
-  subject(:job) { described_class.new }
+  let(:job) { described_class.new }
 
   describe "#perform" do
     subject(:perform) { job.perform(location_id) }

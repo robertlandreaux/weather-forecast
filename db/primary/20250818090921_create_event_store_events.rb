@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateEventStoreEvents < ActiveRecord::Migration[8.0]
   def change
     create_table(:event_store_events, id: :bigserial, force: false) do |t|

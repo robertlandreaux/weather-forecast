@@ -11,5 +11,17 @@ FactoryBot.define do
       latitude { Faker::Address.latitude }
       longitude { Faker::Address.longitude }
     end
+
+    factory :it_location do
+      address_line_1 { "Via Calepina 28" }
+      address_line_2 { nil }
+      address_line_3 { "Trento" }
+      address_line_4 { nil }
+      address_line_5 { 38122 }
+      address_line_6 {}
+      country_code { "IT" }
+      latitude { Faker::Address.latitude }
+      longitude { Faker::Address.longitude }
+    end
   end
 end

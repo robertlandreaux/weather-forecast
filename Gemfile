@@ -47,4 +47,5 @@ group :test do
   gem "faker"
   gem "ruby_event_store-rspec"
   gem "test-prof"
+  gem "webmock"
 end

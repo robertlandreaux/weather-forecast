@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Integration
   module Geocoder
     class GeocodeLocation
@@ -9,13 +7,15 @@ module Integration
       end
 
       def run
-        results = ::Geocoder.search(address)
+        validate
+
+        results = ::Geocoder.search(location.us_address_for_geocoding)
 
         if results&.first&.coordinates
           latitude, longitude = results.first.coordinates
           location.update!(latitude:, longitude:)
         else
-          Rails.logger.info("No coordinates found for #{location.address}")
+          Rails.logger.info("No coordinates found for #{location.us_address_for_geocoding}")
         end
       end
 
