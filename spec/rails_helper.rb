@@ -17,8 +17,6 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
-require "test_prof/recipes/rspec/any_fixture"
-
 Rails.root.glob("spec/support/**/*.rb").sort.each { |f| require f }
 
 RSpec.configure do |config|
@@ -54,10 +52,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  config.include_context "with application data"
 end
-
-require "test_prof/any_fixture/dsl"
-
-using TestProf::AnyFixture::DSL
-TestProf::AnyFixture.config.reporting_enabled = true

@@ -7,15 +7,13 @@ module Integration
       end
 
       def run
-        validate
-
-        results = ::Geocoder.search(location.us_address_for_geocoding)
-
+        results = ::Geocoder.search(location.address_for_geocoding)
+        binding.pry
         if results&.first&.coordinates
           latitude, longitude = results.first.coordinates
           location.update!(latitude:, longitude:)
         else
-          Rails.logger.info("No coordinates found for #{location.us_address_for_geocoding}")
+          Rails.logger.info("No coordinates found for #{location.address_for_geocoding}")
         end
       end
 

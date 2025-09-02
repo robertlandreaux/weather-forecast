@@ -8,8 +8,8 @@ FactoryBot.define do
       address_line_5 { Faker::Address.zip_code }
       address_line_6 {}
       country_code { "US" }
-      latitude { Faker::Address.latitude }
-      longitude { Faker::Address.longitude }
+      latitude { nil }
+      longitude { nil }
     end
 
     factory :it_location do
@@ -20,8 +20,8 @@ FactoryBot.define do
       address_line_5 { 38122 }
       address_line_6 {}
       country_code { "IT" }
-      latitude { Faker::Address.latitude }
-      longitude { Faker::Address.longitude }
+      latitude { nil }
+      longitude { nil }
     end
   end
 end

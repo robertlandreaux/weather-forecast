@@ -35,8 +35,10 @@ group :development, :test do
   gem "rspec-rails"
   gem "standard"
   gem "standard-rails"
-  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "brakeman", require: false
+  gem "byebug"
+  gem "pry-byebug"
+  gem "pry-rails"
 end
 
 group :development do
