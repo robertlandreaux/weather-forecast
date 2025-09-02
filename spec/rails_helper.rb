@@ -17,6 +17,12 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
+require "test_prof/recipes/rspec/any_fixture"
+require "test_prof/any_fixture/dsl"
+
+using TestProf::AnyFixture::DSL
+TestProf::AnyFixture.config.reporting_enabled = true
+
 Rails.root.glob("spec/support/**/*.rb").sort.each { |f| require f }
 
 RSpec.configure do |config|

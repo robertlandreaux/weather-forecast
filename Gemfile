@@ -30,6 +30,10 @@ gem "sentry-sidekiq"
 
 gem "skylight"
 
+group :development do
+  gem "web-console"
+end
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
@@ -39,10 +43,6 @@ group :development, :test do
   gem "byebug"
   gem "pry-byebug"
   gem "pry-rails"
-end
-
-group :development do
-  gem "web-console"
 end
 
 group :test do

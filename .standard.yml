@@ -2,9 +2,9 @@ plugins:
   - standard-rails
 
 ignore:
-  - 'log/**/*'
-  - 'tmp/**/*'
-  - 'vendor/**/*'
+  - "log/**/*"
+  - "tmp/**/*"
+  - "vendor/**/*"
 
 inherit_gem:
   test-prof: config/rubocop-rspec.yml

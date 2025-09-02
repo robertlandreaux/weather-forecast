@@ -8,7 +8,7 @@ module Integration
 
       def run
         results = ::Geocoder.search(location.address_for_geocoding)
-        binding.pry
+
         if results&.first&.coordinates
           latitude, longitude = results.first.coordinates
           location.update!(latitude:, longitude:)
