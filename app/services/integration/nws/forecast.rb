@@ -1,4 +1,4 @@
-module Integrations
+module Integration
   module Nws
     class Forecast
       def initialize

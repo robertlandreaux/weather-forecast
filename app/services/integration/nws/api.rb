@@ -1,20 +1,16 @@
 module Integration
-  NWS_HOSTNAME = "api.weather.gov"
-  USER_AGENT = ENV.fetch("NWS_USER_AGENT", "testing")
-
   module Nws
     class Api
-      def initialize(method:, url:)
+      NWS_HOSTNAME = "api.weather.gov"
+      USER_AGENT = ENV.fetch("NWS_USER_AGENT", "testing")
+
+      def initialize(method:, path:)
         @method = method
-        @url = url
-        @connection = Faraday.new(url: NWS_HOSTNAME, headers: headers)
+        @path = path
       end
 
       def run
-        response = connection.send(method, url) do |faraday|
-          faraday.response :json
-          faraday.response :raise_error
-        end
+        response = connection.send(method)
         connection.close
         response
       end
@@ -22,14 +18,19 @@ module Integration
       private
 
       attr_reader :method
-      attr_reader :url
-      attr_reader :connection
+      attr_reader :path
 
       def headers
         {
           "User-Agent" => USER_AGENT,
           "Content-Type" => "application/ld+json"
         }
+      end
+
+      def connection
+        @connection ||= Faraday.new(url: "https://#{NWS_HOSTNAME}#{path}", headers: headers) do |faraday|
+          faraday.response :raise_error
+        end
       end
     end
   end

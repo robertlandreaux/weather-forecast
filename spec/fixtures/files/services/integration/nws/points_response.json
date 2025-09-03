@@ -1,0 +1,72 @@
+{
+  "@context": {
+    "@version": "1.1",
+    "wx": "https://api.weather.gov/ontology#",
+    "s": "https://schema.org/",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "unit": "http://codes.wmo.int/common/unit/",
+    "@vocab": "https://api.weather.gov/ontology#",
+    "geometry": {
+      "@id": "s:GeoCoordinates",
+      "@type": "geo:wktLiteral"
+    },
+    "city": "s:addressLocality",
+    "state": "s:addressRegion",
+    "distance": {
+      "@id": "s:Distance",
+      "@type": "s:QuantitativeValue"
+    },
+    "bearing": {
+      "@type": "s:QuantitativeValue"
+    },
+    "value": {
+      "@id": "s:value"
+    },
+    "unitCode": {
+      "@id": "s:unitCode",
+      "@type": "@id"
+    },
+    "forecastOffice": {
+      "@type": "@id"
+    },
+    "forecastGridData": {
+      "@type": "@id"
+    },
+    "publicZone": {
+      "@type": "@id"
+    },
+    "county": {
+      "@type": "@id"
+    }
+  },
+  "@id": "https://api.weather.gov/points/39.1762,-84.2418",
+  "@type": "wx:Point",
+  "geometry": "POINT(-84.2418 39.1762)",
+  "cwa": "ILN",
+  "forecastOffice": "https://api.weather.gov/offices/ILN",
+  "gridId": "ILN",
+  "gridX": 45,
+  "gridY": 42,
+  "forecast": "https://api.weather.gov/gridpoints/ILN/45,42/forecast",
+  "forecastHourly": "https://api.weather.gov/gridpoints/ILN/45,42/forecast/hourly",
+  "forecastGridData": "https://api.weather.gov/gridpoints/ILN/45,42",
+  "observationStations": "https://api.weather.gov/gridpoints/ILN/45,42/stations",
+  "relativeLocation": {
+    "city": "Day Heights",
+    "state": "OH",
+    "geometry": "POINT(-84.227465 39.175498)",
+    "distance": {
+      "unitCode": "wmoUnit:m",
+      "value": 1238.1348252678
+    },
+    "bearing": {
+      "unitCode": "wmoUnit:degree_(angle)",
+      "value": 273
+    }
+  },
+  "forecastZone": "https://api.weather.gov/zones/forecast/OHZ078",
+  "county": "https://api.weather.gov/zones/county/OHC025",
+  "fireWeatherZone": "https://api.weather.gov/zones/fire/OHZ078",
+  "timeZone": "America/New_York",
+  "radarStation": "KILN"
+}

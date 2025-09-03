@@ -1,4 +1,4 @@
-module Integrations
+module Integration
   module Nws
     class Points
       def initialize(latitude:, longitude:)
@@ -7,7 +7,11 @@ module Integrations
       end
 
       def run
-        get_points
+        get_points_response.slice(
+          "gridId",
+          "gridX",
+          "gridY"
+        )
       end
 
       private
@@ -15,15 +19,11 @@ module Integrations
       attr_reader :latitude
       attr_reader :longitude
 
-      def get_points
-        url = "/points/#{latitude},#{longitude}"
-        response = Integration::Nws::Api.new(method: "get", url:).run
+      def get_points_response
+        path = "/points/#{latitude},#{longitude}"
+        response = Integration::Nws::Api.new(method: "get", path:).run
 
-        response.slice(
-          "gridId",
-          "gridX",
-          "gridY"
-        )
+        JSON.parse(response.body)
       end
     end
   end
