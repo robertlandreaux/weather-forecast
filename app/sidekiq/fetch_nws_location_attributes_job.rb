@@ -1,0 +1,7 @@
+class FetchNwsLocationAttributesJob
+  include Sidekiq::Job
+
+  def perform
+    Locations::FetchLocationAttributes.new.run
+  end
+end

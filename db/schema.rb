@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_18_090921) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_01_155730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -45,17 +45,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_18_090921) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string "name", null: false
-    t.float "latitude", null: false
-    t.float "longitude", null: false
-    t.string "address_line_1", null: false
-    t.string "address_line_2", null: false
-    t.string "address_line_3", null: false
-    t.string "address_line_4", null: false
-    t.string "address_line_5", null: false
-    t.string "address_line_6", null: false
+    t.string "name"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "address_line_3"
+    t.string "address_line_4"
+    t.string "address_line_5"
+    t.string "address_line_6"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "country_code", null: false
+    t.string "nws_grid_id"
+    t.integer "nws_grid_x"
+    t.integer "nws_grid_y"
   end
 
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"

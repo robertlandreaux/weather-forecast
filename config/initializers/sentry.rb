@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Sentry.init do |config|
   config.breadcrumbs_logger = %i[http_logger monotonic_active_support_logger sentry_logger]
   config.dsn = ENV["SENTRY_DSN"]

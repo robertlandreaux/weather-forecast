@@ -22,26 +22,32 @@ gem "redis"
 
 gem "sidekiq"
 
+gem "geocoder"
+
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "sentry-sidekiq"
 
 gem "skylight"
 
+group :development do
+  gem "web-console"
+end
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
   gem "standard"
   gem "standard-rails"
-  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "brakeman", require: false
-end
-
-group :development do
-  gem "web-console"
+  gem "byebug"
+  gem "pry-byebug"
+  gem "pry-rails"
 end
 
 group :test do
   gem "faker"
   gem "ruby_event_store-rspec"
+  gem "test-prof"
+  gem "webmock"
 end

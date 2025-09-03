@@ -1,7 +1,7 @@
 class FetchForecastJob
   include Sidekiq::Job
 
-  def perform(*args)
-    # Do something
+  def perform
+    # Integration::Nws::FetchForecastService.new.run
   end
 end
