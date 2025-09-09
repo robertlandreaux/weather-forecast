@@ -4,21 +4,27 @@ module Integration
       NWS_HOSTNAME = "api.weather.gov"
       USER_AGENT = ENV.fetch("NWS_USER_AGENT", "testing")
 
-      def initialize(method:, path:)
+      def initialize(method:, path:, log_true: true)
         @method = method
         @path = path
+        @log_request = log_request
       end
 
       def run
-        response = connection.send(method)
+        connection = Faraday.new(url:, headers: headers) do
+          faraday.response :raise_error
+        end
+        @response = connection.send(method)
         connection.close
-        response
+        log_nws_request
+        JSON.parse(response.body)
       end
 
       private
 
       attr_reader :method
       attr_reader :path
+      attr_reader :log_request
 
       def headers
         {
@@ -27,9 +33,22 @@ module Integration
         }
       end
 
-      def connection
-        @connection ||= Faraday.new(url: "https://#{NWS_HOSTNAME}#{path}", headers: headers) do |faraday|
-          faraday.response :raise_error
+      def url
+        "https://#{NWS_HOSTNAME}#{path}"
+      end
+
+      def log_nws_request
+        if log_request && ENV["LOG_NWS_REQUESTS"] == 1
+          ::LogExternalRequestJob.perform_async(
+            request_method: method,
+            request_headers: headers,
+            request_url: url,
+            request_body: nil,
+            response_headers: @response.headers,
+            response_status: @response.status,
+            response_body: @response.body,
+            metadata: nil
+          )
         end
       end
     end

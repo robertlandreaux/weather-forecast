@@ -1,5 +1,5 @@
 require "rails_helper"
-RSpec.describe Integration::Geocoder::GeocodeLocationJob, type: :job do
+RSpec.describe Integration::Geocoder::GeocodeLocationJob do
   let(:job) { described_class.new }
 
   describe "#perform" do

@@ -5,7 +5,8 @@ if Rails.env.local?
     "POSTGRES_USER",
     "POSTGRES_PASSWORD",
     "SENTRY_DSN",
-    "GEOCODIO_API_KEY"
+    "GEOCODIO_API_KEY",
+    "LOG_NWS_REQUESTS"
   )
 end
 
@@ -15,6 +16,7 @@ if Rails.env.production?
     "DATABASE_URL_WF_LOGS",
     "STATEMENT_TIMEOUT",
     "SENTRY_DSN",
-    "GEOCODIO_API_KEY"
+    "GEOCODIO_API_KEY",
+    "LOG_NWS_REQUESTS"
   )
 end

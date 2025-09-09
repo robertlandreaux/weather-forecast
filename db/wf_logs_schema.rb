@@ -20,7 +20,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_07_182706) do
     t.string "request_url"
     t.string "request_body"
     t.string "response_headers"
-    t.string "response_status"
+    t.integer "response_status"
     t.string "response_body"
     t.jsonb "metadata"
     t.datetime "created_at", null: false

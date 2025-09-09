@@ -1,4 +1,4 @@
 require "rails_helper"
-RSpec.describe FetchForecastJob, type: :job do
+RSpec.describe FetchForecastJob do
   pending "add some examples to (or delete) #{__FILE__}"
 end
