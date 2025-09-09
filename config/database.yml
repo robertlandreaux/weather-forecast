@@ -24,7 +24,7 @@ development_wf_logs_default: &development_wf_logs_default
   username: <%= ENV.fetch("POSTGRES_USER") { nil } %>
   password: <%= ENV.fetch("POSTGRES_PASSWORD") { nil } %>
   host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
-  migration_paths: db/wf_logs
+  migrations_paths: db/wf_logs
 
 development:
   primary:
