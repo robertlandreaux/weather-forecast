@@ -13,8 +13,6 @@ RSpec.describe Integration::Nws::Points do
 
     let(:get_points_request) {
       stub_request(:get, url).with(headers: {
-        # "Accept" => "*/*",
-        # "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
         "Content-Type" => "application/ld+json",
         "User-Agent" => "testing"
       })
@@ -41,12 +39,10 @@ RSpec.describe Integration::Nws::Points do
     end
 
     it "returns the grid attributes from the NWS points response" do
-      expect(run).to eq(
-        {
-          "gridId" => "ILN",
-          "gridX" => 45,
-          "gridY" => 42
-        }
+      expect(run).to include(
+        "gridId" => "ILN",
+        "gridX" => 45,
+        "gridY" => 42
       )
     end
   end

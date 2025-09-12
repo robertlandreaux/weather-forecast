@@ -8,7 +8,7 @@ module Integration
 
       def run
         path = "/points/#{latitude},#{longitude}"
-        Integration::Nws::Api.new(method: "get", path:).run
+        Integration::Nws::Api.new(request_method: "get", path:).parsed_response
       end
 
       private

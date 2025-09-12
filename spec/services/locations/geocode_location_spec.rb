@@ -1,7 +1,7 @@
 require "rails_helper"
 require "ostruct"
 
-RSpec.describe Integration::Geocoder::GeocodeLocation do
+RSpec.describe Locations::GeocodeLocation do
   let(:service) { described_class.new(location_id: location_id) }
 
   let(:location_id) { location.id }
@@ -17,7 +17,7 @@ RSpec.describe Integration::Geocoder::GeocodeLocation do
       )
     end
 
-    fit "updates the location with the latitude and longitude from the geocoding API" do
+    it "updates the location with the latitude and longitude from the geocoding API" do
       expect { run }.to change { location.reload.latitude }.to(1.0)
         .and change { location.reload.longitude }.to(2.0)
     end
@@ -28,7 +28,7 @@ RSpec.describe Integration::Geocoder::GeocodeLocation do
         allow(Rails.logger).to receive(:info)
       end
 
-      fit "does not update the location" do
+      it "does not update the location" do
         run
         expect(location.reload.latitude).to be_nil
         expect(location.reload.longitude).to be_nil
