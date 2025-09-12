@@ -6,7 +6,9 @@ if Rails.env.local?
     "POSTGRES_PASSWORD",
     "SENTRY_DSN",
     "GEOCODIO_API_KEY",
-    "LOG_NWS_REQUESTS"
+    "LOG_NWS_REQUESTS",
+    "TEST_PRIMARY_DATABASE_URL",
+    "TEST_WF_LOGS_DATABASE_URL"
   )
 end
 

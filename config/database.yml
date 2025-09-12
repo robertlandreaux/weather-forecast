@@ -35,17 +35,17 @@ development:
 test:
   primary:
     <<: *development_primary_default
-    database: <%= ENV.fetch("POSTGRES_TEST_DB_PRIMARY") { "weather_forecast_test" } %>
+    url: <%= ENV["TEST_PRIMARY_DATABASE_URL"] %>
   wf_logs:
     <<: *development_wf_logs_default
-    database: <%= ENV.fetch("POSTGRES_TEST_DB_WF_LOG") { "wf_logs_test" } %>
+    url: <%= ENV["TEST_WF_LOGS_DATABASE_URL"] %>
 
 
 
 production:
   primary: &default
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    url: <%= ENV["PRIMARY_DATABASE_URL"] %>
   wf_logs:
     url: <%= ENV["DATABASE_URL_WF_LOGS"] %>
     migration_paths: db/wf_logs
