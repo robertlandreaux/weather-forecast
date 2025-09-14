@@ -34,10 +34,8 @@ development:
 
 test:
   primary:
-    <<: *development_primary_default
     url: <%= ENV["TEST_PRIMARY_DATABASE_URL"] %>
   wf_logs:
-    <<: *development_wf_logs_default
     url: <%= ENV["TEST_WF_LOGS_DATABASE_URL"] %>
 
 
