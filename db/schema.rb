@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_01_155730) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_15_110812) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_155730) do
     t.string "nws_grid_id"
     t.integer "nws_grid_x"
     t.integer "nws_grid_y"
+    t.datetime "discarded_at", precision: nil
+    t.datetime "datetime", precision: nil
+    t.index ["discarded_at"], name: "index_locations_on_discarded_at"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "full_name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"

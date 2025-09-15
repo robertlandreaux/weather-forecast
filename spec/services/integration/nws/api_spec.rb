@@ -22,15 +22,22 @@ RSpec.describe Integration::Nws::Api do
     file_fixture("services/integration/nws/points_response.json").read
   }
 
+  let(:url) { "https://api.weather.gov/points/39.1762,-84.2418" }
+
+  let(:nws_request_logging_enabled) { "0" }
+
   before do
-    allow(ENV).to receive(:fetch).with("NWS_USER_AGENT", "testing").and_return("testing")
     get_points_request.to_return(
       status: 200,
       body: points_response
     )
   end
 
-  let(:url) { "https://api.weather.gov/points/39.1762,-84.2418" }
+  around do |example|
+    with_modified_env NWS_USER_AGENT: "testing" do
+      example.run
+    end
+  end
 
   describe "#parsed_response" do
     subject(:parsed_response) { api.parsed_response }
@@ -48,6 +55,36 @@ RSpec.describe Integration::Nws::Api do
         "gridX" => 45,
         "gridY" => 42
       )
+    end
+
+    context "when NWS request logging is enabled" do
+      let(:nws_request_logging_enabled) { "1" }
+
+      before do
+        allow(LogExternalRequestJob).to receive(:perform_async)
+      end
+
+      it "uses LogExternalRequestJob#perform_async" do
+        api.parsed_response
+
+        request_body = nil
+        response_headers = {}
+        metadata = nil
+
+        expect(LogExternalRequestJob).to have_received(:perform_async).with(
+          "get",
+          {
+            "Content-Type" => "application/ld+json",
+            "User-Agent" => "testing"
+          },
+          "https://api.weather.gov/points/39.1762,-84.2418",
+          request_body,
+          response_headers,
+          200,
+          points_response,
+          metadata
+        )
+      end
     end
   end
 

@@ -30,6 +30,8 @@ gem "sentry-sidekiq"
 
 gem "skylight"
 
+gem "discard"
+
 group :development do
   gem "web-console"
 end
@@ -50,4 +52,7 @@ group :test do
   gem "ruby_event_store-rspec"
   gem "test-prof"
   gem "webmock"
+  gem "shoulda-matchers"
+  gem "simplecov", require: false
+  gem "climate_control"
 end

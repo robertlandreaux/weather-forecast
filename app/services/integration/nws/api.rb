@@ -25,7 +25,7 @@ module Integration
       attr_reader :log_request
 
       def run_request
-        connection = Faraday.new(url:, headers: headers) do |faraday|
+        connection = Faraday.new(url:, headers: request_headers) do |faraday|
           faraday.response :raise_error
         end
         @response = connection.send(request_method)
@@ -33,7 +33,7 @@ module Integration
         log_nws_request
       end
 
-      def headers
+      def request_headers
         {
           "User-Agent" => ENV.fetch("NWS_USER_AGENT", "testing"),
           "Content-Type" => "application/ld+json"
@@ -45,16 +45,19 @@ module Integration
       end
 
       def log_nws_request
-        if log_request && ENV["LOG_NWS_REQUESTS"] == 1
-          ::LogExternalRequestJob.perform_async(
-            request_method: method,
-            request_headers: headers,
-            request_url: url,
-            request_body: nil,
-            response_headers: response.headers,
-            response_status: response.status,
-            response_body: response.body,
-            metadata: nil
+        request_body = nil
+        metadata = nil
+
+        if log_request && ENV.fetch("LOG_NWS_REQUESTS", "0")
+          LogExternalRequestJob.perform_async(
+            request_method,
+            request_headers,
+            url,
+            request_body,
+            response.headers.to_h,
+            response.status,
+            response.body,
+            metadata
           )
         end
       end

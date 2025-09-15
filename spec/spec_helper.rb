@@ -13,6 +13,12 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+if ENV.fetch("SIMPLE_COV_ENABLED", 0)
+  require "simplecov"
+  SimpleCov.start "rails"
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
@@ -81,4 +87,10 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   Kernel.srand config.seed
+
+  if ENV["CI"]
+    config.before(:example, :focus) do
+      raise "Remove focus from this example."
+    end
+  end
 end

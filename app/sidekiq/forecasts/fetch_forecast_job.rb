@@ -2,8 +2,8 @@ module Forecasts
   class FetchForecastJob
     include Sidekiq::Job
 
-    def perform
-      # Integration::Nws::FetchForecastService.new.run
+    def perform(location_id)
+      Forecasts::FetchForecastService.new(location_id:).run
     end
   end
 end

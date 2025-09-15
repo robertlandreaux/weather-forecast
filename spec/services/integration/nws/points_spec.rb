@@ -22,8 +22,13 @@ RSpec.describe Integration::Nws::Points do
       file_fixture("services/integration/nws/points_response.json").read
     }
 
+    around do |example|
+      with_modified_env NWS_USER_AGENT: "testing" do
+        example.run
+      end
+    end
+
     before do
-      allow(ENV).to receive(:fetch).with("NWS_USER_AGENT", "testing").and_return("testing")
       get_points_request.to_return(
         status: 200,
         body: points_response

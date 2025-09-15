@@ -55,8 +55,8 @@ class Location < PrimaryApplicationRecord
     "WY" => "Wyoming"
   }
 
-  validates :address_line_3, :address_line_4, :address_line_5,
-    presence: true, if: -> { country_code == "US" }
+  validates :country_code, presence: true
+  validate :us_address_required_fields
 
   def city
     address_line_3 if us_address?
@@ -75,6 +75,16 @@ class Location < PrimaryApplicationRecord
   end
 
   def address_for_geocoding
-    [city, state, country_code].compact.join(", ")
+    [address_line_3, address_line_4, address_line_5].compact.join(", ")
+  end
+
+  private
+
+  def us_address_required_fields
+    return unless country_code == "US"
+
+    errors.add(:base, "City can't be blank") if city.blank?
+    errors.add(:base, "State can't be blank") if state.blank?
+    errors.add(:base, "Zip Code can't be blank") if zip_code.blank?
   end
 end
