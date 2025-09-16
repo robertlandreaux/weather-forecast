@@ -1,7 +1,10 @@
 require "rails_helper"
+require "shared_contexts/with_application_data"
 require "ostruct"
 
 RSpec.describe Locations::GeocodeLocation do
+  include_context "with application data"
+
   let(:service) { described_class.new(location_id: location_id) }
 
   let(:location_id) { location.id }

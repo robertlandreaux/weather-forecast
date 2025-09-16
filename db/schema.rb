@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_16_113223) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_16_121549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -39,9 +39,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_113223) do
   end
 
   create_table "forecasts", force: :cascade do |t|
-    t.jsonb "data"
+    t.jsonb "data", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "location_id", null: false
+    t.date "date", null: false
+    t.index ["location_id"], name: "index_forecasts_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -74,4 +77,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_16_113223) do
   end
 
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
+  add_foreign_key "forecasts", "locations"
 end
