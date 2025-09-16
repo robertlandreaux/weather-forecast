@@ -10,6 +10,9 @@ FactoryBot.define do
       country_code { "US" }
       latitude { nil }
       longitude { nil }
+      nws_grid_id { Faker::Restaurant.name }
+      nws_grid_x { rand(1..100) }
+      nws_grid_y { rand(1..100) }
     end
 
     factory :it_location do

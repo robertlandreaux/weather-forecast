@@ -1,5 +1,5 @@
-RSpec.configure do |config|
-  config.before(:suite) do
+RSpec.shared_context "with application data" do
+  before(:all) do
     @us_location = TestProf::AnyFixture.register(:us_location) do
       FactoryBot.create(:us_location)
     end

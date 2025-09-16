@@ -10,7 +10,8 @@ module Locations
 
       if results&.first&.coordinates
         latitude, longitude = results.first.coordinates
-        location.update!(latitude:, longitude:)
+        time_zone = Timezone.lookup(latitude, longitude).name
+        location.update!(latitude:, longitude:, time_zone: time_zone)
       else
         Rails.logger.info("No coordinates found for #{location.address_for_geocoding}")
       end

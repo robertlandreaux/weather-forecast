@@ -1,0 +1,58 @@
+require "rails_helper"
+require "shared_contexts/with_application_data"
+
+RSpec.describe Forecasts::FetchForecastService, type: :service do
+  include_context "with application data"
+
+  let(:service) { described_class.new(location_id: location.id) }
+
+  let(:location) { TestProf::AnyFixture.cached(:us_location) }
+
+  describe "#run" do
+    subject(:run) { service.run }
+
+    before do
+      allow(Integration::Nws::Forecast).to receive(:new).and_return(forecast)
+    end
+
+    let(:forecast) { instance_double(Integration::Nws::Forecast, run: JSON.parse(forecast_response)) }
+
+    let(:forecast_response) {
+      file_fixture("services/integration/nws/forecast_response.json").read
+    }
+
+    it "uses Integration::Nws::Forecast#run" do
+      run
+      expect(Integration::Nws::Forecast).to have_received(:new)
+        .with(grid_id: location.nws_grid_id, grid_x: location.nws_grid_x, grid_y: location.nws_grid_y)
+      expect(forecast).to have_received(:run)
+    end
+
+    it "creates a Forecast record with the forecast data" do
+      expect { run }.to change(Forecast, :count).by(1)
+      forecast_record = Forecast.last
+      expect(forecast_record.location_id).to eq(location.id)
+      expect(forecast_record.date).to eq(Date.current)
+      expect(forecast_record.data).to include(
+        "today" => a_hash_including(
+          "name" => "Today",
+          "temperature" => 88,
+          "temperatureUnit" => "F",
+          "windSpeed" => "2 to 6 mph",
+          "windDirection" => "E",
+          "shortForecast" => "Mostly Sunny",
+          "detailedForecast" => "Mostly sunny, with a high near 88. East wind 2 to 6 mph."
+        ),
+        "tonight" => a_hash_including(
+          "name" => "Tonight",
+          "temperature" => 59,
+          "temperatureUnit" => "F",
+          "windSpeed" => "2 to 6 mph",
+          "windDirection" => "E",
+          "shortForecast" => "Partly Cloudy",
+          "detailedForecast" => "Partly cloudy, with a low around 59. East wind 2 to 6 mph."
+        )
+      )
+    end
+  end
+end

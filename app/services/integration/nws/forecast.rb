@@ -9,7 +9,7 @@ module Integration
 
       def run
         path = "/gridpoints/#{grid_id}/#{grid_x}/#{grid_y}"
-        Integration::Nws::Api.new(method: get, path:).run
+        Integration::Nws::Api.new(request_method: "get", path:).parsed_response
       end
 
       private

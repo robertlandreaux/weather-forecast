@@ -37,6 +37,7 @@ jobs:
           LOG_NWS_REQUESTS: 1
           RAILS_MAX_THREAD: 5
           REDIS_URL: ${{ secrets.REDIS_URL }}
+          SIMPLE_COV_ENABLED: ${{ secrets.SIMPLE_COV_ENABLED }}
           TEST_PRIMARY_DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_USER }}@localhost:5432/${{ secrets.TEST_PRIMARY_DATABASE }}
           TEST_WF_LOGS_DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_USER }}@localhost:5432/${{ secrets.TEST_WF_LOGS_DATABASE }}
         run: |

@@ -1,7 +1,10 @@
 require "rails_helper"
+require "shared_contexts/with_application_data"
 require "ostruct"
 
 RSpec.describe Locations::GeocodeLocation do
+  include_context "with application data"
+
   let(:service) { described_class.new(location_id: location_id) }
 
   let(:location_id) { location.id }
@@ -11,15 +14,21 @@ RSpec.describe Locations::GeocodeLocation do
     subject(:run) { service.run }
 
     let(:coordinates) { OpenStruct.new(coordinates: [1.0, 2.0]) }
+    let(:time_zone) { OpenStruct.new(name: "America/New_York") }
     before do
       allow(Geocoder).to receive(:search).with(location.address_for_geocoding).and_return(
         [coordinates]
       )
+      allow(Timezone).to receive(:lookup).with(1.0, 2.0).and_return(time_zone)
     end
 
     it "updates the location with the latitude and longitude from the geocoding API" do
       expect { run }.to change { location.reload.latitude }.to(1.0)
         .and change { location.reload.longitude }.to(2.0)
+    end
+
+    it "updates location.time_zone with the return value of Timezone.lookup" do
+      expect { run }.to change { location.reload.time_zone }
     end
 
     context "when the geocoding API does not return any coordinates" do
