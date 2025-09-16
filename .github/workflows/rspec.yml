@@ -34,6 +34,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          GEONAMES_USERNAME: ${{ secrets.GEONAMES_USERNAME }}
           LOG_NWS_REQUESTS: 1
           RAILS_MAX_THREAD: 5
           REDIS_URL: ${{ secrets.REDIS_URL }}
