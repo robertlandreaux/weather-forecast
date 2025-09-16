@@ -32,6 +32,8 @@ gem "skylight"
 
 gem "discard"
 
+gem "timezone"
+
 group :development do
   gem "web-console"
 end

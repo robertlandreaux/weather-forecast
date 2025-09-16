@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_15_110812) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_16_113223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_110812) do
     t.integer "nws_grid_y"
     t.datetime "discarded_at", precision: nil
     t.datetime "datetime", precision: nil
+    t.string "time_zone"
     t.index ["discarded_at"], name: "index_locations_on_discarded_at"
   end
 
