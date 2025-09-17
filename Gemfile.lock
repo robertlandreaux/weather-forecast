@@ -128,6 +128,7 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.2.0)
+    hashids (1.0.6)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.1)
@@ -174,6 +175,9 @@ GEM
     pg (1.6.1-x86_64-linux)
     pp (0.6.2)
       prettyprint
+    prefixed_ids (1.8.1)
+      hashids (>= 1.0.0, < 2.0.0)
+      rails (>= 6.0.0)
     prettyprint (0.2.0)
     prism (1.4.0)
     propshaft (1.2.1)
@@ -401,6 +405,7 @@ DEPENDENCIES
   faraday-retry
   geocoder
   pg
+  prefixed_ids
   propshaft
   pry-byebug
   pry-rails

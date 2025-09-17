@@ -36,6 +36,8 @@ gem "timezone"
 
 gem "rack-session"
 
+gem "prefixed_ids"
+
 group :development do
   gem "web-console"
 end

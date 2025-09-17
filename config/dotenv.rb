@@ -3,6 +3,7 @@ all_environments_required_keys = [
   "ADMIN_USERNAME",
   "GEONAMES_USERNAME",
   "LOG_NWS_REQUESTS",
+  "PREFIXED_IDS_SALT",
   "RACK_SESSION_SECRET",
   "RAILS_MAX_THREADS",
   "REDIS_URL"
