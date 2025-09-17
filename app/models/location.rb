@@ -55,6 +55,8 @@ class Location < PrimaryApplicationRecord
     "WY" => "Wyoming"
   }
 
+  has_prefix_id :loc
+
   validates :country_code, presence: true
   validate :us_address_required_fields
 
