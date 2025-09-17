@@ -34,6 +34,8 @@ gem "discard"
 
 gem "timezone"
 
+gem "rack-session"
+
 group :development do
   gem "web-console"
 end

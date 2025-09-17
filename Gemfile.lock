@@ -406,6 +406,7 @@ DEPENDENCIES
   pry-rails
   puma
   rack-cors
+  rack-session
   rails
   rails_event_store
   redis

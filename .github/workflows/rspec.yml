@@ -33,14 +33,18 @@ jobs:
 
       - name: Run tests
         env:
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+          RACK_SESSION_SECRET: ${{ secrets.RACK_SESSION_SECRET }}
           RAILS_ENV: test
           GEONAMES_USERNAME: ${{ secrets.GEONAMES_USERNAME }}
           LOG_NWS_REQUESTS: 1
+          PREFIXED_IDS_SALT: ${{ secrets.PREFIXED_IDS_SALT }}
           RAILS_MAX_THREAD: 5
           REDIS_URL: ${{ secrets.REDIS_URL }}
           SIMPLE_COV_ENABLED: ${{ secrets.SIMPLE_COV_ENABLED }}
-          TEST_PRIMARY_DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_USER }}@localhost:5432/${{ secrets.TEST_PRIMARY_DATABASE }}
-          TEST_WF_LOGS_DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_USER }}@localhost:5432/${{ secrets.TEST_WF_LOGS_DATABASE }}
+          TEST_DATABASE_URL_PRIMARY: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_USER }}@localhost:5432/${{ secrets.TEST_PRIMARY_DATABASE }}
+          TEST_DATABASE_URL_WF_LOGS: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_USER }}@localhost:5432/${{ secrets.TEST_WF_LOGS_DATABASE }}
         run: |
           bin/rails db:setup
           bundle exec rspec
