@@ -48,7 +48,7 @@ module Integration
         request_body = nil
         metadata = nil
 
-        if log_request && ENV.fetch("LOG_NWS_REQUESTS", "0")
+        if log_request && ENV.fetch("LOG_NWS_REQUESTS", "0") == "1"
           LogExternalRequestJob.perform_async(
             request_method,
             request_headers,

@@ -19,6 +19,68 @@ RSpec.describe Location, type: :model do
           )
         end
       end
+
+      context "when address_line_3, address_line_4, and address_line 5 are present" do
+        subject(:us_location) {
+          FactoryBot.build(
+            :location,
+            country_code:,
+            address_line_3: "New Orleans",
+            address_line_4: "LA",
+            address_line_5: "70124"
+          )
+        }
+
+        it "is valid" do
+          expect(us_location).to be_valid
+        end
+      end
+
+      context "when address_line_4 is not a valid US state code" do
+        subject(:us_location) {
+          FactoryBot.build(
+            :location,
+            country_code:,
+            address_line_3: "New Orleans",
+            address_line_4: "ZZ",
+            address_line_5: "70124"
+          )
+        }
+
+        it "returns an error message" do
+          us_location.validate
+          expect(us_location.errors.messages[:address_line_4]).to include("is not included in the list")
+        end
+      end
+
+      context "when address_line_3, address_line_4, address_line 5, and country_code are not unique" do
+        let!(:existing_location) {
+          FactoryBot.create(
+            :location,
+            country_code:,
+            address_line_3: "New Orleans",
+            address_line_4: "LA",
+            address_line_5: "70124"
+          )
+        }
+
+        let(:us_location) {
+          FactoryBot.build(
+            :location,
+            country_code:,
+            address_line_3: "New Orleans",
+            address_line_4: "LA",
+            address_line_5: "70124"
+          )
+        }
+
+        it "returns error messages" do
+          us_location.validate
+          expect(us_location.errors.messages[:address_line_3]).to include(
+            "combination of City, State, Zip Code, and Country Code must be unique"
+          )
+        end
+      end
     end
   end
 

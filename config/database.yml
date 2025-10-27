@@ -34,16 +34,19 @@ development:
 
 test:
   primary:
+    <<: *default
     url: <%= ENV["TEST_DATABASE_URL_PRIMARY"] %>
   wf_logs:
+    <<: *default
     url: <%= ENV["TEST_DATABASE_URL_WF_LOGS"] %>
 
 
 
 production:
-  primary: &default
+  primary:
     <<: *default
     url: <%= ENV["DATABASE_URL_PRIMARY"] %>
   wf_logs:
+    <<: *default
     url: <%= ENV["DATABASE_URL_WF_LOGS"] %>
     migration_paths: db/wf_logs

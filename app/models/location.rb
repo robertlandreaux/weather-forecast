@@ -1,6 +1,4 @@
 class Location < PrimaryApplicationRecord
-  # TODO: add a LocationCreated RailsEventStore::Event and run the GeocodeAddressJob for US addresses only.
-
   US_STATES = {
     "AL" => "Alabama",
     "AK" => "Alaska",
@@ -59,6 +57,15 @@ class Location < PrimaryApplicationRecord
 
   validates :country_code, presence: true
   validate :us_address_required_fields
+  validates :address_line_4, inclusion: {in: US_STATES.keys}, if: :us_address?
+  validates(
+    :address_line_3,
+    uniqueness: {
+      scope: %i[address_line_4 address_line_5 country_code],
+      message: "combination of City, State, Zip Code, and Country Code must be unique"
+    },
+    if: :us_address?
+  )
 
   def city
     address_line_3 if us_address?

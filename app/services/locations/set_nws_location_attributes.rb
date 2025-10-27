@@ -13,6 +13,7 @@ module Locations
           nws_grid_x: location_attributes["gridX"],
           nws_grid_y: location_attributes["gridY"]
         )
+        Forecasts::FetchForecastJob.perform_async(location.id)
       end
     end
 

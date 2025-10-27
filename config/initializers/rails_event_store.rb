@@ -3,7 +3,21 @@ require "aggregate_root"
 require "arkency/command_bus"
 
 Rails.configuration.to_prepare do
-  Rails.configuration.event_store = RailsEventStore::JSONClient.new
+  Rails.configuration.event_store = RailsEventStore::Client.new(
+    repository: RailsEventStoreActiveRecord::EventRepository.new(serializer: JSON),
+    message_broker: RubyEventStore::Broker.new(
+      subscriptions: RubyEventStore::Subscriptions.new,
+      dispatcher: RubyEventStore::ComposedDispatcher.new(
+        RailsEventStore::AfterCommitAsyncDispatcher.new(
+          scheduler: RubyEventStore::SidekiqScheduler.new(
+            serializer: RubyEventStore::Serializers::YAML
+          )
+        ),
+        RubyEventStore::Dispatcher.new
+      )
+    )
+  )
+
   Rails.configuration.command_bus = Arkency::CommandBus.new
 
   AggregateRoot.configure do |config|

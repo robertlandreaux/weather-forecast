@@ -15,6 +15,7 @@ gem "faraday"
 gem "faraday-retry"
 
 gem "rails_event_store"
+gem "ruby_event_store-sidekiq_scheduler"
 
 gem "rack-cors"
 
@@ -37,6 +38,8 @@ gem "timezone"
 gem "rack-session"
 
 gem "prefixed_ids"
+
+gem "typed_params"
 
 group :development do
   gem "web-console"

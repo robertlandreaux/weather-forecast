@@ -1,15 +1,8 @@
 module Api
   class LocationsController < ApplicationController
     def create
-      location = Location.find_or_create_by!(
-        address_line_3: params[:city],
-        address_line_4: params[:state],
-        address_line_5: params[:zip_code],
-        country_code: params[:country_code]
-      )
+      location = Locations::CreateLocationService.new(location_attributes: location_params).run
 
-      event = LocationCreated.new(data: {location_id: location.id})
-      event_store.publish(event, stream_name: "Location_#{location.id}", expected_version: :any)
       render(
         json: {
           id: location.prefixed_id,
@@ -20,6 +13,12 @@ module Api
         },
         status: :created
       )
+    end
+
+    private
+
+    def location_params
+      params.require(:location).permit(:city, :state, :zip_code, :country_code)
     end
   end
 end
