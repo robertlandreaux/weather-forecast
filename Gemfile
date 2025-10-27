@@ -22,6 +22,7 @@ gem "rack-cors"
 gem "redis"
 
 gem "sidekiq"
+gem "sidekiq-scheduler"
 
 gem "geocoder"
 

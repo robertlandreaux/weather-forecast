@@ -4,4 +4,8 @@ RSpec.shared_context "with application data" do
       FactoryBot.create(:us_location)
     end
   end
+
+  after(:all) do
+    @us_location.reload
+  end
 end
