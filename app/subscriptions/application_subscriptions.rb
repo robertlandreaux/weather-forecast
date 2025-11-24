@@ -1,7 +1,8 @@
 class ApplicationSubscriptions
   def handlers
     {
-      LocationReadModel.new => [Locations::LocationCreated]
+      LocationReadModel.new => [Locations::LocationCreated],
+      ForecastReadModel.new => [Forecasts::ForecastCreated]
     }
   end
 

@@ -37,7 +37,7 @@ RSpec.describe Integration::Nws::Forecast do
       )
     end
 
-    fit "uses the NWS gridpoints endpoint" do
+    it "uses the NWS gridpoints endpoint" do
       run
       expect(WebMock).to have_requested(:get, url).with(headers: {
         "User-Agent" => "testing",
