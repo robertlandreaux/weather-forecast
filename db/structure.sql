@@ -181,6 +181,38 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: user_locations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_locations (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    location_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_locations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_locations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_locations_id_seq OWNED BY public.user_locations.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -241,6 +273,13 @@ ALTER TABLE ONLY public.locations ALTER COLUMN id SET DEFAULT nextval('public.lo
 
 
 --
+-- Name: user_locations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_locations ALTER COLUMN id SET DEFAULT nextval('public.user_locations_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -293,6 +332,14 @@ ALTER TABLE ONLY public.locations
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: user_locations user_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_locations
+    ADD CONSTRAINT user_locations_pkey PRIMARY KEY (id);
 
 
 --
@@ -374,6 +421,36 @@ CREATE INDEX index_locations_on_discarded_at ON public.locations USING btree (di
 
 
 --
+-- Name: index_user_locations_on_location_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_locations_on_location_id ON public.user_locations USING btree (location_id);
+
+
+--
+-- Name: index_user_locations_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_locations_on_user_id ON public.user_locations USING btree (user_id);
+
+
+--
+-- Name: user_locations fk_rails_374794d0e3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_locations
+    ADD CONSTRAINT fk_rails_374794d0e3 FOREIGN KEY (location_id) REFERENCES public.locations(id);
+
+
+--
+-- Name: user_locations fk_rails_3aef0f4606; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_locations
+    ADD CONSTRAINT fk_rails_3aef0f4606 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: forecasts fk_rails_6aed6f4045; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -396,6 +473,7 @@ ALTER TABLE ONLY public.event_store_events_in_streams
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251124132444'),
 ('20250916121549'),
 ('20250916114503'),
 ('20250916113223'),

@@ -1,11 +1,18 @@
 module Api
   class LocationsController < ApplicationController
     def create
-      location = Locations::CreateLocationService.new(location_attributes: location_params).run
+      location = Locations::CreateLocationService.new(
+        location_attributes: {
+          city: location_params[:city],
+          state: location_params[:state],
+          zip_code: location_params[:zip_code],
+          country_code: location_params[:country_code]
+        }
+      ).run
 
       render(
         json: {
-          id: location.prefixed_id,
+          id: location.prefix_id,
           city: location.city,
           state: location.state,
           zip_code: location.zip_code,

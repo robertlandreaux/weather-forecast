@@ -7,7 +7,10 @@ module Forecasts
 
       def run
         forecast = Forecast.find(forecast_id)
-        ForecastMailer.new_forecast(forecast).deliver_later
+
+        forecast.location.users.each do |user|
+          ForecastMailer.new_forecast(forecast, user).deliver_later
+        end
       end
 
       private

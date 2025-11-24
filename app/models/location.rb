@@ -53,6 +53,9 @@ class Location < PrimaryApplicationRecord
     "WY" => "Wyoming"
   }
 
+  has_many :user_locations, dependent: :destroy
+  has_many :users, through: :user_locations
+
   has_prefix_id :loc
 
   validates :country_code, presence: true
