@@ -1,0 +1,9 @@
+Hello, <%= @user.full_name %>
+
+The weather forecast for <%= @location.city %>, <%= @location.state %> on <%= @forecast.date.strftime("%A, %b %d %Y") %> is as follows:
+
+Today:
+<%= @forecast.data["today"] %>
+
+Tonight:
+<%= @forecast.data["tonight"] %>

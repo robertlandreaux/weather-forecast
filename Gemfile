@@ -44,6 +44,7 @@ gem "typed_params"
 
 group :development do
   gem "web-console"
+  gem "letter_opener"
 end
 
 group :development, :test do
@@ -55,6 +56,9 @@ group :development, :test do
   gem "byebug"
   gem "pry-byebug"
   gem "pry-rails"
+
+  gem "guard", require: false
+  gem "guard-rspec", require: false
 end
 
 group :test do
