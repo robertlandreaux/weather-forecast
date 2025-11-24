@@ -1,6 +1,6 @@
 module Forecasts
   module Notifiers
-    class ForecastCreated < RailsEventStore::Event
+    class NewForecast < RailsEventStore::Event
       def initialize(forecast_id:)
         @forecast_id = forecast_id
       end

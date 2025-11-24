@@ -1,6 +1,7 @@
 module Locations
   class GeocodeLocationJob
     include Sidekiq::Job
+
     sidekiq_options queue: :geocoding, retry: false
 
     def perform(location_id)
