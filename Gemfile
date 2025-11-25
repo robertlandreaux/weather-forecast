@@ -15,12 +15,14 @@ gem "faraday"
 gem "faraday-retry"
 
 gem "rails_event_store"
+gem "ruby_event_store-sidekiq_scheduler"
 
 gem "rack-cors"
 
 gem "redis"
 
 gem "sidekiq"
+gem "sidekiq-scheduler"
 
 gem "geocoder"
 
@@ -34,8 +36,15 @@ gem "discard"
 
 gem "timezone"
 
+gem "rack-session"
+
+gem "prefixed_ids"
+
+gem "typed_params"
+
 group :development do
   gem "web-console"
+  gem "letter_opener"
 end
 
 group :development, :test do
@@ -47,6 +56,9 @@ group :development, :test do
   gem "byebug"
   gem "pry-byebug"
   gem "pry-rails"
+
+  gem "guard", require: false
+  gem "guard-rspec", require: false
 end
 
 group :test do

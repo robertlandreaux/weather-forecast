@@ -5,14 +5,20 @@ module Forecasts
     end
 
     def run
-      Forecast.create!(location:, data: forecast, date: Date.current)
+      forecast = Forecast.create!(location:, data: fetched_forecast, date: Date.current)
+      event = Forecasts::ForecastCreated.new(data: {forecast_id: forecast.id})
+      Rails.configuration.event_store.publish(
+        event,
+        stream_name: "Forecast_#{forecast.id}",
+        expected_version: :any
+      )
     end
 
     private
 
     attr_reader :location
 
-    def forecast
+    def fetched_forecast
       forecast = Integration::Nws::Forecast.new(
         grid_id: location.nws_grid_id,
         grid_x: location.nws_grid_x,

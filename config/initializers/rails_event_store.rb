@@ -3,7 +3,9 @@ require "aggregate_root"
 require "arkency/command_bus"
 
 Rails.configuration.to_prepare do
-  Rails.configuration.event_store = RailsEventStore::JSONClient.new
+  Rails.configuration.event_store = event_store = RailsEventStore::JSONClient.new
+  ApplicationSubscriptions.new.call(event_store)
+
   Rails.configuration.command_bus = Arkency::CommandBus.new
 
   AggregateRoot.configure do |config|

@@ -3,6 +3,7 @@ require "spec_helper"
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
+
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
@@ -19,6 +20,7 @@ end
 
 require "test_prof/recipes/rspec/any_fixture"
 require "test_prof/any_fixture/dsl"
+require "sidekiq/testing"
 
 using TestProf::AnyFixture::DSL
 TestProf::AnyFixture.config.reporting_enabled = true

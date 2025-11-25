@@ -1,0 +1,11 @@
+<div>
+  <p>Hello, <%= @user.full_name %></p>
+
+  <p>The weather forecast for <%= @location.city %>, <%= @location.state %> on <%= @forecast.date.strftime("%A, %b %d %Y") %> is as follows:</p>
+
+  <p>Today:</p>
+  <p><%= @forecast.data["today"] %></p>
+
+  <p>Tonight:</p>
+  <p><%= @forecast.data["tonight"] %></p>
+</div>

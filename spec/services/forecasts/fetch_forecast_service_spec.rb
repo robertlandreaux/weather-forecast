@@ -13,6 +13,7 @@ RSpec.describe Forecasts::FetchForecastService, type: :service do
 
     before do
       allow(Integration::Nws::Forecast).to receive(:new).and_return(forecast)
+      allow(Rails.configuration.event_store).to receive(:publish).and_return(true)
     end
 
     let(:forecast) { instance_double(Integration::Nws::Forecast, run: JSON.parse(forecast_response)) }
@@ -52,6 +53,16 @@ RSpec.describe Forecasts::FetchForecastService, type: :service do
           "shortForecast" => "Partly Cloudy",
           "detailedForecast" => "Partly cloudy, with a low around 59. East wind 2 to 6 mph."
         )
+      )
+    end
+
+    it "publishes a ForecastCreated event" do
+      run
+      forecast_record = Forecast.last
+      expect(Rails.configuration.event_store).to have_received(:publish).with(
+        an_instance_of(Forecasts::ForecastCreated),
+        stream_name: "Forecast_#{forecast_record.id}",
+        expected_version: :any
       )
     end
   end
