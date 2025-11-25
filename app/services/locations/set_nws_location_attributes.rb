@@ -5,7 +5,12 @@ module Locations
     end
 
     def run
-      location_attributes = Integration::Nws::Points.new(latitude: location.latitude, longitude: location.longitude).run
+      location_attributes = Integration::Nws::Points.new(
+        # Truncate the latitude and longitude because sometimes the NWS API returns
+        # 404 for very precise coordinates.
+        latitude: location.latitude.truncate(2),
+        longitude: location.longitude.truncate(2)
+      ).run
 
       if location_attributes
         location.update!(
