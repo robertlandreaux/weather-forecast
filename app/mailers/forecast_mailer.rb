@@ -4,7 +4,8 @@ class ForecastMailer < ApplicationMailer
     @location = forecast.location
     mail(
       to: user.email,
-      subject: "#{forecast.date.strftime("%A, %b %d %Y")} Forecast for #{location.city}, #{location.state}"
+      subject: "#{forecast.date.strftime("%A, %b %d %Y")} Forecast for #{location.address_line_3}, " \
+      "#{location.address_line_4}"
     )
   end
 end
