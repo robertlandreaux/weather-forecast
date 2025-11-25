@@ -351,6 +351,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: idx_on_address_line_3_address_line_4_address_line_5_0af8be9b19; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_on_address_line_3_address_line_4_address_line_5_0af8be9b19 ON public.locations USING btree (address_line_3, address_line_4, address_line_5, country_code);
+
+
+--
 -- Name: index_event_store_events_in_streams_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -473,6 +480,7 @@ ALTER TABLE ONLY public.event_store_events_in_streams
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251125132309'),
 ('20251124132444'),
 ('20250916121549'),
 ('20250916114503'),

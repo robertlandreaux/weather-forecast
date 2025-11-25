@@ -8,8 +8,8 @@ FactoryBot.define do
       address_line_5 { Faker::Address.zip_code }
       address_line_6 {}
       country_code { "US" }
-      latitude { nil }
-      longitude { nil }
+      latitude { Faker::Address.latitude }
+      longitude { Faker::Address.longitude }
       nws_grid_id { Faker::Restaurant.name }
       nws_grid_x { rand(1..100) }
       nws_grid_y { rand(1..100) }
