@@ -1,7 +1,5 @@
 module Locations
-  class SetNwsLocationAttributesJob
-    include Sidekiq::Job
-
+  class SetNwsLocationAttributesJob < ApplicationJob
     sidekiq_options queue: :nws, retry: false
 
     def perform(location_id)

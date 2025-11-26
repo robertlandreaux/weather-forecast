@@ -1,7 +1,5 @@
 module Forecasts
-  class FetchForecastJob
-    include Sidekiq::Job
-
+  class FetchForecastJob < ApplicationJob
     sidekiq_options queue: :nws, retry: false
 
     def perform(location_id)
