@@ -511,6 +511,7 @@ DEPENDENCIES
   test-prof
   timezone
   typed_params
+  tzinfo
   tzinfo-data
   web-console
   webmock

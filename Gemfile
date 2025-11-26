@@ -9,7 +9,7 @@ gem "puma"
 gem "rails"
 gem "propshaft"
 gem "bootsnap", require: false
-gem "tzinfo-data", platforms: %i[windows jruby]
+gem "tzinfo"
 
 gem "faraday"
 gem "faraday-retry"
