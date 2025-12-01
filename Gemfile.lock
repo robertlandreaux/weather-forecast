@@ -102,6 +102,9 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
+    data_migrate (11.3.1)
+      activerecord (>= 6.1)
+      railties (>= 6.1)
     date (3.5.0)
     diff-lcs (1.6.2)
     discard (1.4.0)
@@ -471,6 +474,7 @@ DEPENDENCIES
   brakeman
   byebug
   climate_control
+  data_migrate
   discard
   dotenv
   factory_bot_rails
@@ -512,7 +516,6 @@ DEPENDENCIES
   timezone
   typed_params
   tzinfo
-  tzinfo-data
   web-console
   webmock
 

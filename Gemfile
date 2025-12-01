@@ -45,6 +45,8 @@ gem "typed_params"
 gem "rswag-api"
 gem "rswag-ui"
 
+gem "data_migrate"
+
 group :development do
   gem "web-console"
   gem "letter_opener"
