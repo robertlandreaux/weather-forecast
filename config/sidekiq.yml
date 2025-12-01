@@ -3,6 +3,7 @@
 :queues:
   - logging
   - forecasts
+  - mailers
 :scheduler:
   :schedule:
     fetch_forecasts:
