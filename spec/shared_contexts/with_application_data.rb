@@ -8,7 +8,10 @@ RSpec.shared_context "with application data" do
         address_line_5: "45202",
         country_code: "US",
         latitude: 39.1031,
-        longitude: -84.5120
+        longitude: -84.5120,
+        nws_grid_id: "XYZ",
+        nws_grid_x: 1,
+        nws_grid_y: 2
       )
     end
 
@@ -20,7 +23,10 @@ RSpec.shared_context "with application data" do
         address_line_5: "90001",
         country_code: "US",
         latitude: 34.0522,
-        longitude: -118.2437
+        longitude: -118.2437,
+        nws_grid_id: "ABC",
+        nws_grid_x: 3,
+        nws_grid_y: 4
       )
     end
 

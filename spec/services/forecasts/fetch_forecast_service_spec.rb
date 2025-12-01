@@ -64,5 +64,18 @@ RSpec.describe Forecasts::FetchForecastService, type: :service do
         expected_version: :any
       )
     end
+
+    context "when the location is missing nws_grid_id" do
+      let(:location) {
+        FactoryBot.create(
+          :us_location,
+          nws_grid_id: nil
+        )
+      }
+
+      it "raises a MissingNwsGridId error" do
+        expect { run }.to raise_error(Forecasts::FetchForecastService::MissingNwsGridId)
+      end
+    end
   end
 end

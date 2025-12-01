@@ -27,6 +27,15 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: data_migrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.data_migrations (
+    version character varying NOT NULL
+);
+
+
+--
 -- Name: event_store_events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -295,6 +304,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: data_migrations data_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.data_migrations
+    ADD CONSTRAINT data_migrations_pkey PRIMARY KEY (version);
+
+
+--
 -- Name: event_store_events_in_streams event_store_events_in_streams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -428,6 +445,13 @@ CREATE INDEX index_locations_on_discarded_at ON public.locations USING btree (di
 
 
 --
+-- Name: index_locations_on_time_zone_and_nws_grid_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_locations_on_time_zone_and_nws_grid_id ON public.locations USING btree (time_zone, nws_grid_id);
+
+
+--
 -- Name: index_user_locations_on_location_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -480,6 +504,7 @@ ALTER TABLE ONLY public.event_store_events_in_streams
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251201143748'),
 ('20251125132309'),
 ('20251124132444'),
 ('20250916121549'),
