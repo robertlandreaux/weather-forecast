@@ -1,6 +1,6 @@
 module Forecasts
   class FetchForecastsJob < ::ApplicationJob
-    sidekiq_options queue: :forecasts, retry: false
+    sidekiq_options queue: :nws, retry: false
 
     TARGET_HOUR = 6
 
