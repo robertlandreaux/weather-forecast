@@ -1,5 +1,4 @@
 require "rails_helper"
-require "shared_contexts/with_application_data"
 
 RSpec.describe Locations::SetNwsLocationAttributes do
   include_context "with application data"
@@ -8,7 +7,7 @@ RSpec.describe Locations::SetNwsLocationAttributes do
 
   let(:location_id) { location.id }
 
-  let(:location) { TestProf::AnyFixture.cached(:us_location) }
+  let(:location) { TestProf::AnyFixture.cached(:us_location_1) }
 
   describe "#run" do
     subject(:run) { service.run }
@@ -32,6 +31,21 @@ RSpec.describe Locations::SetNwsLocationAttributes do
       expect { run }.to change { location.reload.nws_grid_id }.to("ILN")
         .and change { location.reload.nws_grid_x }.to(45)
         .and change { location.reload.nws_grid_y }.to(42)
+    end
+
+    context "when location is missing coordinates" do
+      let(:location_missing_lat_and_long) {
+        FactoryBot.create(:us_location, latitude: nil, longitude: nil)
+      }
+
+      let(:location_id) { location_missing_lat_and_long.id }
+
+      it "raises LocationMissingCoordinates error" do
+        expect { run }.to raise_error(
+          Locations::SetNwsLocationAttributes::LocationMissingCoordinates,
+          "Location must have latitude and longitude set"
+        )
+      end
     end
   end
 end
