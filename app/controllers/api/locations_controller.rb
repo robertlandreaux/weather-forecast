@@ -1,5 +1,7 @@
 module Api
   class LocationsController < BaseController
+    before_action :validate_location, only: [:create]
+
     def create
       location = Locations::CreateLocationService.new(
         location_attributes: {
@@ -25,7 +27,7 @@ module Api
     typed_params on: :create do
       param :location, type: :hash do
         param :city, type: :string
-        param :state, type: :string
+        param :state, type: :string, optional: true
         param :zip_code, type: :string
         param :country_code, type: :string
       end
@@ -35,6 +37,15 @@ module Api
 
     def location_params
       params.require(:location).permit(:city, :state, :zip_code, :country_code)
+    end
+
+    def validate_location
+      if location_params[:country_code] != "US"
+        render(
+          json: {error: "Only locations within the United States are supported."},
+          status: :unprocessable_entity
+        )
+      end
     end
   end
 end
