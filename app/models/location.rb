@@ -58,6 +58,7 @@ class Location < PrimaryApplicationRecord
 
   has_prefix_id :loc
 
+  validates :address_line_3, :address_line_4, :address_line_5, presence: true
   validates :country_code, presence: true
   validate :us_address_required_fields
   validates :address_line_4, inclusion: {in: US_STATES.keys}, if: :us_address?
