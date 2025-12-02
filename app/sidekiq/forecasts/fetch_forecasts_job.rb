@@ -19,6 +19,8 @@ module Forecasts
       utc_now = Time.now.utc
 
       TZInfo::Timezone.all.filter { |zone|
+        zone.name.start_with?("America/")
+      }.filter { |zone|
         local_time_in_zone = zone.utc_to_local(utc_now)
         (local_time_in_zone.hour == TARGET_HOUR) ? zone.name : false
       }.map(&:name)
