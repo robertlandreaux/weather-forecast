@@ -27,7 +27,7 @@ module Api
     typed_params on: :create do
       param :location, type: :hash do
         param :city, type: :string
-        param :state, type: :string, optional: true
+        param :state, type: :string
         param :zip_code, type: :string
         param :country_code, type: :string
       end
