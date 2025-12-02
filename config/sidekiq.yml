@@ -8,5 +8,5 @@
   :schedule:
     fetch_forecasts:
       cron: '0 * * * *'   # Runs every hour at minute 0
-      class: FetchForecastsJob
+      class: Forecasts::FetchForecastsJob
       queue: forecasts
