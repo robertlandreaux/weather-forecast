@@ -49,5 +49,24 @@ RSpec.describe Locations::GeocodeLocation do
           .with("No coordinates found for #{location.address_for_geocoding}")
       end
     end
+
+    context "when the location already has latitude and longitude" do
+      let(:location) {
+        FactoryBot.create(
+          :us_location,
+          latitude: 10.0,
+          longitude: 20.0
+        )
+      }
+
+      it "does not call the geocoding API" do
+        run
+        expect(Geocoder).not_to have_received(:search)
+      end
+
+      it "does not update the location" do
+        expect { run }.not_to change { location.reload }
+      end
+    end
   end
 end
