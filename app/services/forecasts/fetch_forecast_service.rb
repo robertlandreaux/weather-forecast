@@ -7,6 +7,8 @@ module Forecasts
     end
 
     def run
+      return if forecast_exists?
+
       validate_location!
 
       forecast = Forecast.create!(location:, data: fetched_forecast, date: Date.current)
@@ -37,6 +39,10 @@ module Forecasts
 
     def validate_location!
       raise MissingNwsGridId if location.nws_grid_id.blank?
+    end
+
+    def forecast_exists?
+      Forecast.exists?(location: location, date: Date.current)
     end
   end
 end

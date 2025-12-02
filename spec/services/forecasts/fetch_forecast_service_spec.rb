@@ -77,5 +77,24 @@ RSpec.describe Forecasts::FetchForecastService, type: :service do
         expect { run }.to raise_error(Forecasts::FetchForecastService::MissingNwsGridId)
       end
     end
+
+    context "when a forecast already exists for the location and date" do
+      let!(:forecast) {
+        FactoryBot.create(
+          :forecast,
+          location: location,
+          date: Date.current
+        )
+      }
+
+      it "does not create a new forecast" do
+        expect { run }.not_to change(Forecast, :count)
+      end
+
+      it "does not use Integration::Nws::Forecast" do
+        run
+        expect(Integration::Nws::Forecast).not_to have_received(:new)
+      end
+    end
   end
 end
