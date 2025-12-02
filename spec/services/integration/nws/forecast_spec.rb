@@ -8,7 +8,7 @@ RSpec.describe Integration::Nws::Forecast do
   let(:grid_y) { 42 }
 
   let(:hostname) { ::Integration::Nws::Api::NWS_HOSTNAME }
-  let(:url) { "https://#{hostname}/gridpoints/#{grid_id}/#{grid_x}/#{grid_y}" }
+  let(:url) { "https://#{hostname}/gridpoints/#{grid_id}/#{grid_x}/#{grid_y}/forecast" }
 
   describe "#run" do
     subject(:run) { service.run }
