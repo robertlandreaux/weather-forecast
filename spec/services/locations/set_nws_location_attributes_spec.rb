@@ -22,9 +22,11 @@ RSpec.describe Locations::SetNwsLocationAttributes do
 
     let(:nws_grid) {
       {
-        "gridId" => "ILN",
-        "gridX" => 45,
-        "gridY" => 42
+        "properties" => {
+          "gridId" => "ILN",
+          "gridX" => 45,
+          "gridY" => 42
+        }
       }
     }
     it "updates the location nws attributes" do
