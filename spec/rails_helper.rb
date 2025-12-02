@@ -27,8 +27,6 @@ TestProf::AnyFixture.config.reporting_enabled = true
 
 Rails.root.glob("spec/support/**/*.rb").sort.each { |f| require f }
 
-require "shared_contexts/with_application_data"
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
