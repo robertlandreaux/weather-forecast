@@ -2,6 +2,8 @@
 
 This project fetches weather data forecasts from the United States National Weather Service [API](https://www.weather.gov/documentation/services-web-api) (NWS).
 
+You will need to set the NWS_USER_AGENT environment variable to identify your request. See the Authentication section here: https://www.weather.gov/documentation/services-web-api
+
 Currently only weather forecast data is only available for locations within the United States.
 
 ## Environment variables needed
@@ -28,6 +30,14 @@ This project uses Sidekiq for background jobs and asynchronous processing. All S
 
 This project uses [Sentry](https://sentry.io/) for error tracking.
 
+## Data Migrations
+
+This project uses the [data_migrate gem](https://github.com/ilyakatz/data-migrate) to manage data migrations rather than including data migrations within schema migrations, which are located in db/primary and db/wf_logs.
+
+## Multiple Database Configuration
+
+This project stores all data in the primary database except for logs to the NWS API, which are stored in the wf_logs database.
+
 ### Pre-requisites
 
 Ensure that you have Redis and PostgreSQL installed and running. A Dockerfile and docker-compose.yml file will be coming to this project in the near future.
@@ -38,17 +48,16 @@ The current ruby version is specified in the .ruby-version file. If you use rben
 
 Then run `bundle install` to install the required Ruby gems.
 
-To create the development and test, run:
+To create the development and test databases, run:
 `bin/rails db:create`
 `bin/rails db:migrate`
 
 If you want to populate your local environment with some sample locations, you can run:
 `bin/rails data:migrate`
-to run the data PopulateLocations migration in db/data/
+to run the data PopulateLocations data migration in db/data/.
 
-This project uses the [data_migrate gem](https://github.com/ilyakatz/data-migrate) to manage data migrations rather than including data migrations within schema migrations, which are located in db/primary and db/wf_logs
+Those sample locations from the PopulateLocations data migration do not have latitude, longitude, and time_zone set. You can run `bin/rails runner lib/scripts/set_missing_nws_attributes.rb` to set those attributes.
 
-This project stores all data in the primary database except for logs to the NWS API, which are stored in the wf_logs database.
 
 
 
