@@ -9,7 +9,7 @@ gem "puma"
 gem "rails"
 gem "propshaft"
 gem "bootsnap", require: false
-gem "tzinfo-data", platforms: %i[windows jruby]
+gem "tzinfo"
 
 gem "faraday"
 gem "faraday-retry"
@@ -42,6 +42,11 @@ gem "prefixed_ids"
 
 gem "typed_params"
 
+gem "rswag-api"
+gem "rswag-ui"
+
+gem "data_migrate"
+
 group :development do
   gem "web-console"
   gem "letter_opener"
@@ -50,6 +55,7 @@ end
 group :development, :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
+  gem "rswag-specs"
   gem "standard"
   gem "standard-rails"
   gem "brakeman", require: false

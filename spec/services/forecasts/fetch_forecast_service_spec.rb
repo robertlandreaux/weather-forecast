@@ -1,12 +1,11 @@
 require "rails_helper"
-require "shared_contexts/with_application_data"
 
 RSpec.describe Forecasts::FetchForecastService, type: :service do
   include_context "with application data"
 
   let(:service) { described_class.new(location_id: location.id) }
 
-  let(:location) { TestProf::AnyFixture.cached(:us_location) }
+  let(:location) { TestProf::AnyFixture.cached(:us_location_1) }
 
   describe "#run" do
     subject(:run) { service.run }
@@ -64,6 +63,38 @@ RSpec.describe Forecasts::FetchForecastService, type: :service do
         stream_name: "Forecast_#{forecast_record.id}",
         expected_version: :any
       )
+    end
+
+    context "when the location is missing nws_grid_id" do
+      let(:location) {
+        FactoryBot.create(
+          :us_location,
+          nws_grid_id: nil
+        )
+      }
+
+      it "raises a MissingNwsGridId error" do
+        expect { run }.to raise_error(Forecasts::FetchForecastService::MissingNwsGridId)
+      end
+    end
+
+    context "when a forecast already exists for the location and date" do
+      let!(:forecast) {
+        FactoryBot.create(
+          :forecast,
+          location: location,
+          date: Date.current
+        )
+      }
+
+      it "does not create a new forecast" do
+        expect { run }.not_to change(Forecast, :count)
+      end
+
+      it "does not use Integration::Nws::Forecast" do
+        run
+        expect(Integration::Nws::Forecast).not_to have_received(:new)
+      end
     end
   end
 end

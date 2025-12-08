@@ -1,5 +1,9 @@
 # weather-forecast
 
+## Functionality
+
+Currently only weather forecast data is only available for locations within the United States.
+
 ## Environment variables needed
 
 See config/dotenv.rb for necessary environment variables.

@@ -1,6 +1,6 @@
 Hello, <%= @user.full_name %>
 
-The weather forecast for <%= @location.city %>, <%= @location.state %> on <%= @forecast.date.strftime("%A, %b %d %Y") %> is as follows:
+The weather forecast for <%= @location.address_line_3 %>, <%= @location.address_line_4 %> on <%= @forecast.date.strftime("%A, %b %d %Y") %> is as follows:
 
 Today:
 <%= @forecast.data["today"] %>

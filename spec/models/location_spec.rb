@@ -7,6 +7,10 @@ RSpec.describe Location, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:country_code) }
 
+    it { is_expected.to validate_presence_of(:address_line_3) }
+    it { is_expected.to validate_presence_of(:address_line_4) }
+    it { is_expected.to validate_presence_of(:address_line_5) }
+
     context "when country_code is US" do
       let(:country_code) { "US" }
 

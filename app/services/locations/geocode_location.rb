@@ -6,6 +6,8 @@ module Locations
     end
 
     def run
+      return if location.latitude.present? && location.longitude.present?
+
       results = ::Geocoder.search(location.address_for_geocoding)
 
       if results&.first&.coordinates

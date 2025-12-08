@@ -1,6 +1,8 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
   res_browser =
     Rack::Builder.new do
       use Rack::Auth::Basic do |username, password|
@@ -45,5 +47,6 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: {format: :json} do
     post "locations", to: "locations#create"
+    post "forecast", to: "forecasts#forecast"
   end
 end

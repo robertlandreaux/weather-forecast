@@ -1,14 +1,17 @@
 require "rails_helper"
-require "shared_contexts/with_application_data"
 require "ostruct"
 
 RSpec.describe Locations::GeocodeLocation do
-  include_context "with application data"
-
   let(:service) { described_class.new(location_id: location_id) }
 
   let(:location_id) { location.id }
-  let(:location) { TestProf::AnyFixture.cached(:us_location) }
+  let(:location) {
+    FactoryBot.create(
+      :us_location,
+      latitude: nil,
+      longitude: nil
+    )
+  }
 
   describe "#run" do
     subject(:run) { service.run }
@@ -44,6 +47,25 @@ RSpec.describe Locations::GeocodeLocation do
 
         expect(Rails.logger).to have_received(:info)
           .with("No coordinates found for #{location.address_for_geocoding}")
+      end
+    end
+
+    context "when the location already has latitude and longitude" do
+      let(:location) {
+        FactoryBot.create(
+          :us_location,
+          latitude: 10.0,
+          longitude: 20.0
+        )
+      }
+
+      it "does not call the geocoding API" do
+        run
+        expect(Geocoder).not_to have_received(:search)
+      end
+
+      it "does not update the location" do
+        expect { run }.not_to change { location.reload }
       end
     end
   end

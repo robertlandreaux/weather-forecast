@@ -1,6 +1,4 @@
-class LogExternalRequestJob
-  include Sidekiq::Job
-
+class LogExternalRequestJob < ApplicationJob
   sidekiq_options queue: :logging
 
   def perform(

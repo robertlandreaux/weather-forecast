@@ -1,12 +1,11 @@
 require "rails_helper"
-require "shared_contexts/with_application_data"
 
 RSpec.describe Forecasts::Notifiers::NewForecast, type: :service do
   include_context "with application data"
 
   let(:service) { described_class.new(forecast_id: forecast.id) }
 
-  let(:forecast) { TestProf::AnyFixture.cached(:forecast_us_location) }
+  let(:forecast) { TestProf::AnyFixture.cached(:forecast_1_us_location) }
   let(:location) { forecast.location }
   let(:user1) { TestProf::AnyFixture.cached(:user_1) }
   let(:user2) { TestProf::AnyFixture.cached(:user_2) }
