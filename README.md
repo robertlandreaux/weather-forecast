@@ -54,7 +54,7 @@ To create the development and test databases, run:
 
 If you want to populate your local environment with some sample locations, you can run:
 `bin/rails data:migrate`
-to run the data PopulateLocations data migration in db/data/.
+to run the PopulateLocations data migration in db/data/.
 
 Those sample locations from the PopulateLocations data migration do not have latitude, longitude, and time_zone set. You can run `Scripts::GeocodeLocations.new.run` in the Rails console to set those attributes.
 
