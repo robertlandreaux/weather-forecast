@@ -8,7 +8,7 @@ module Integration
       end
 
       def run
-        path = "/gridpoints/#{grid_id}/#{grid_x}/#{grid_y}/forecast"
+        path = "/gridpoints/#{grid_id}/#{grid_x},#{grid_y}/forecast"
         Integration::Nws::Api.new(request_method: "get", path:).parsed_response
       end
 
