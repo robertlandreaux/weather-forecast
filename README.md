@@ -18,7 +18,7 @@ You will need an API key from https://www.geocod.io/ in order to perform the geo
 
 ## Time zone lookups
 
-app/sidekiq/forecasts/fetch_forecasts_job.rb is a scheduled job that fetches forecast data for all existing locations at 6 AM _of the location time zone_. If you want to run this job successfully, then it is necessary for the application to fetch the time zone of a location. You will need to sign up for a free account at https://www.geonames.org/login. You will need to set the GEONAMES_USERNAME to your username. 
+app/sidekiq/forecasts/fetch_forecasts_job.rb is a scheduled job that fetches forecast data for all existing locations at 6 AM _of the location time zone_. This application uses the [Timezone gem](https://github.com/panthomakos/timezone) to fetch the time zone for a particular location. You will need to sign up for a free account at https://www.geonames.org/login and then set the GEONAMES_USERNAME to your username. 
 
 ## Background Processing
 
