@@ -20,9 +20,7 @@ end
 
 if Rails.env.test?
   Dotenv.require_keys(
-    *all_environments_required_keys,
-    "TEST_DATABASE_URL_PRIMARY",
-    "TEST_DATABASE_URL_WF_LOGS"
+    *all_environments_required_keys
   )
 end
 
