@@ -13,7 +13,8 @@ if Rails.env.development?
     *all_environments_required_keys,
     "GEOCODIO_API_KEY",
     "POSTGRES_PASSWORD",
-    "POSTGRES_USER"
+    "POSTGRES_USER",
+    "NWS_USER_AGENT"
   )
 end
 
@@ -35,6 +36,7 @@ if Rails.env.production?
     "LOG_NWS_REQUESTS",
     "SENTRY_DSN",
     "STATEMENT_TIMEOUT",
-    "SKYLIGHT_AUTH_TOKEN"
+    "SKYLIGHT_AUTH_TOKEN",
+    "NWS_USER_AGENT"
   )
 end
