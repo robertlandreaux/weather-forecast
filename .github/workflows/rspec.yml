@@ -43,6 +43,8 @@ jobs:
           RAILS_MAX_THREAD: 5
           REDIS_URL: ${{ secrets.REDIS_URL }}
           SIMPLE_COV_ENABLED: ${{ secrets.SIMPLE_COV_ENABLED }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
           bin/rails db:setup
           bundle exec rspec
