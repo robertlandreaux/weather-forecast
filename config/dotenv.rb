@@ -14,15 +14,13 @@ if Rails.env.development?
     "GEOCODIO_API_KEY",
     "POSTGRES_PASSWORD",
     "POSTGRES_USER",
-    "SENTRY_DSN"
+    "NWS_USER_AGENT"
   )
 end
 
 if Rails.env.test?
   Dotenv.require_keys(
-    *all_environments_required_keys,
-    "TEST_DATABASE_URL_PRIMARY",
-    "TEST_DATABASE_URL_WF_LOGS"
+    *all_environments_required_keys
   )
 end
 
@@ -35,6 +33,8 @@ if Rails.env.production?
     "GEOCODIO_API_KEY",
     "LOG_NWS_REQUESTS",
     "SENTRY_DSN",
-    "STATEMENT_TIMEOUT"
+    "STATEMENT_TIMEOUT",
+    "SKYLIGHT_AUTH_TOKEN",
+    "NWS_USER_AGENT"
   )
 end

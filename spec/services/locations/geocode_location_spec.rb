@@ -68,5 +68,28 @@ RSpec.describe Locations::GeocodeLocation do
         expect { run }.not_to change { location.reload }
       end
     end
+
+    context "when Timezone.lookup raises an error" do
+      before do
+        allow(Timezone).to receive(:lookup).and_raise(StandardError, "Some error")
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it "captures the exception with Sentry" do
+        run
+        expect(Sentry).to have_received(:capture_exception).with(instance_of(StandardError))
+      end
+
+      it "does not set the time_zone on the location" do
+        run
+        expect(location.reload.time_zone).to be_nil
+      end
+
+      it "still sets the latitude and longitude on the location" do
+        run
+        expect(location.reload.latitude).to eq(1.0)
+        expect(location.reload.longitude).to eq(2.0)
+      end
+    end
   end
 end

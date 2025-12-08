@@ -34,19 +34,18 @@ development:
 
 test:
   primary:
-    <<: *default
-    url: <%= ENV["TEST_DATABASE_URL_PRIMARY"] %>
+    <<: *development_primary_default
+    database: <%= ENV.fetch("TEST_DATABASE_PRIMARY") { "weather_forecast_test"} %>
   wf_logs:
-    <<: *default
-    url: <%= ENV["TEST_DATABASE_URL_WF_LOGS"] %>
-
-
+    <<: *development_wf_logs_default
+    database: <%= ENV.fetch("TEST_DATABASE_WF_LOGS") { "wf_logs_test" } %>
 
 production:
   primary:
     <<: *default
     url: <%= ENV["DATABASE_URL_PRIMARY"] %>
+    migrations_paths: db/primary
   wf_logs:
     <<: *default
     url: <%= ENV["DATABASE_URL_WF_LOGS"] %>
-    migration_paths: db/wf_logs
+    migrations_paths: db/wf_logs

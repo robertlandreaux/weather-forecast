@@ -1,4 +1,4 @@
-module Locations
+module Scripts
   class GeocodeLocations
     def run
       Location.where(latitude: nil, longitude: nil).find_each do |location|

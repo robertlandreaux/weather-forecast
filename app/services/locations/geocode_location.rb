@@ -12,8 +12,7 @@ module Locations
 
       if results&.first&.coordinates
         latitude, longitude = results.first.coordinates
-        time_zone = Timezone.lookup(latitude, longitude).name
-        location.update!(latitude:, longitude:, time_zone: time_zone)
+        location.update!(latitude:, longitude:, time_zone: time_zone(latitude, longitude))
         set_nws_location_attributes
       else
         Rails.logger.info("No coordinates found for #{location.address_for_geocoding}")
@@ -26,6 +25,13 @@ module Locations
 
     def set_nws_location_attributes
       Locations::SetNwsLocationAttributesJob.perform_async(location.id)
+    end
+
+    def time_zone(latitude, longitude)
+      Timezone.lookup(latitude, longitude)&.name
+    rescue => e
+      Sentry.capture_exception(e)
+      nil
     end
   end
 end
