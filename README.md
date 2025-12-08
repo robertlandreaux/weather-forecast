@@ -56,10 +56,6 @@ If you want to populate your local environment with some sample locations, you c
 `bin/rails data:migrate`
 to run the data PopulateLocations data migration in db/data/.
 
-Those sample locations from the PopulateLocations data migration do not have latitude, longitude, and time_zone set. You can run `bin/rails runner lib/scripts/set_missing_nws_attributes.rb` to set those attributes.
+Those sample locations from the PopulateLocations data migration do not have latitude, longitude, and time_zone set. You can run `Scripts::GeocodeLocations.new.run` in the Rails console to set those attributes.
 
-
-
-
-
-
+To fetch forecasts for all locations, you can run `Forecasts::FetchForecastsJob.perform_async` in the Rails console.
