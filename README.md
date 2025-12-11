@@ -40,7 +40,7 @@ This project stores all data in the primary database except for logs to the NWS 
 
 ### Pre-requisites
 
-Ensure that you have Redis and PostgreSQL installed and running. A Dockerfile and docker-compose.yml file will be coming to this project in the near future.
+You can either use Redis and PostgreSQL through Docker (using the docker-compose.yml file) or you can use local versions on your machine. The currently used Redis and PostgreSQL versions are specified in docker-compose.yml. 
 
 ## Getting Started
 
