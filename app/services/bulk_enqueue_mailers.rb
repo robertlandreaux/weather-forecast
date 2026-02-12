@@ -1,7 +1,7 @@
 class BulkEnqueueMailers
   # @param mail_class [Class] The mailer class
   # @param template [Symbol] The mailer template method
-  # @param args_array [Array<Array>] An array of argument arrays for the mailer
+  # @param mailer_args [Array<Array>] An array of argument arrays for the mailer
   def initialize(mail_class:, template:, mailer_args:)
     @mail_class = mail_class
     @template = template
