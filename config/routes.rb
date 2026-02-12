@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", :as => :rails_health_check
 
   namespace :api, constraints: {format: :json} do
-    post "locations", to: "locations#create"
+    resources :locations, only: [:create]
     post "forecast", to: "forecasts#forecast"
   end
 end

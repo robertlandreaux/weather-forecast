@@ -3,10 +3,12 @@ require "rails_helper"
 RSpec.describe BulkEnqueueMailers, type: :job do
   include_context "with application data"
 
-  let(:bulk_enqueuer) { described_class.new }
+  let(:bulk_enqueuer) {
+    described_class.new(mail_class: mail_class, template: template, mailer_args: mailer_args)
+  }
   let(:mail_class) { ForecastMailer }
   let(:template) { :new_forecast }
-  let(:args_array) {
+  let(:mailer_args) {
     [
       [forecast_1, user_1],
       [forecast_2, user_2]
@@ -19,7 +21,7 @@ RSpec.describe BulkEnqueueMailers, type: :job do
   let(:forecast_2) { TestProf::AnyFixture.cached(:forecast_2_us_location) }
 
   describe "#run" do
-    subject(:run) { bulk_enqueuer.run(mail_class, template, args_array) }
+    subject(:run) { bulk_enqueuer.run }
 
     before do
       allow(Sidekiq::Client).to receive(:push_bulk)

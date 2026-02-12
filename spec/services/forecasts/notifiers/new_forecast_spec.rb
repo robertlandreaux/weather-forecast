@@ -10,10 +10,12 @@ RSpec.describe Forecasts::Notifiers::NewForecast, type: :service do
   let(:user1) { TestProf::AnyFixture.cached(:user_1) }
   let(:user2) { TestProf::AnyFixture.cached(:user_2) }
 
+  let(:bulk_enqueue_mailers) { instance_double(BulkEnqueueMailers, run: nil) }
+
   before do
     location.users << user1
     location.users << user2
-    allow(ForecastMailer).to receive_message_chain(:new_forecast, :deliver_later)
+    allow(BulkEnqueueMailers).to receive(:new).and_return(bulk_enqueue_mailers)
   end
 
   describe "#run" do
@@ -21,9 +23,12 @@ RSpec.describe Forecasts::Notifiers::NewForecast, type: :service do
 
     it "sends new forecast emails to all users associated with the forecast's location" do
       run
-      expect(ForecastMailer).to have_received(:new_forecast).with(forecast, user1)
-      expect(ForecastMailer).to have_received(:new_forecast).with(forecast, user2)
-      expect(ForecastMailer).to have_received(:new_forecast).exactly(2).times
+      expect(BulkEnqueueMailers).to have_received(:new).with(
+        mail_class: ForecastMailer,
+        template: :new_forecast,
+        mailer_args: [[forecast.id, user1], [forecast.id, user2]]
+      )
+      expect(bulk_enqueue_mailers).to have_received(:run)
     end
   end
 end

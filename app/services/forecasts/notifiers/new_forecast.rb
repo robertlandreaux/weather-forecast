@@ -6,11 +6,13 @@ module Forecasts
       end
 
       def run
-        forecast = Forecast.find(forecast_id)
+        users = Forecast.find(forecast_id).location.users
 
-        forecast.location.users.each do |user|
-          ForecastMailer.new_forecast(forecast, user).deliver_later
-        end
+        BulkEnqueueMailers.new(
+          mail_class: ForecastMailer,
+          template: :new_forecast,
+          mailer_args: users.map { |user| [forecast_id, user] }
+        ).run
       end
 
       private

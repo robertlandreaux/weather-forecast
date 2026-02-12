@@ -1,0 +1,55 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/forecast":
+    post:
+      summary: Fetches the current forecast
+      tags:
+      - Forecast
+      security:
+      - basic_auth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Auth token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: forecast fetched
+        '422':
+          description: invalid request
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                state:
+                  type: string
+                zip_code:
+                  type: string
+                country_code:
+                  type: string
+              required:
+              - city
+              - state
+              - zip_code
+              - country_code
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
+securitySchemes:
+  basic_auth:
+    type: http
+    scheme: basic
