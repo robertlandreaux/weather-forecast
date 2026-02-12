@@ -29,7 +29,6 @@ RSpec.describe "Forecast API", type: :request do
 
         let(:forecast) {
           {
-
             city: "San Francisco",
             state: "CA",
             country_code: "USA",

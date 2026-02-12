@@ -43,7 +43,7 @@ module Api
       if location_params[:country_code] != "US"
         render(
           json: {error: "Only locations within the United States are supported."},
-          status: :unprocessable_entity
+          status: :unprocessable_content
         )
       end
     end
