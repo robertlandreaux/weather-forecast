@@ -9,6 +9,8 @@ paths:
       summary: Fetches the current forecast
       tags:
       - Forecast
+      security:
+      - basic_auth: []
       parameters:
       - name: Authorization
         in: header
@@ -47,3 +49,7 @@ servers:
   variables:
     defaultHost:
       default: www.example.com
+securitySchemes:
+  basic_auth:
+    type: http
+    scheme: basic
