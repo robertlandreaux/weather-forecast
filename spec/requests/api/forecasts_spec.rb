@@ -11,6 +11,7 @@ RSpec.describe "Forecast API", type: :request do
     post("Fetches the current forecast") do
       tags "Forecast"
       consumes "application/json"
+      security [{basic_auth: []}]
       parameter name: :Authorization, in: :header, type: :string, required: true, description: "Auth token"
       parameter name: :forecast, in: :body, schema: {
         type: :object,
