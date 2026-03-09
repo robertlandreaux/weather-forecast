@@ -40,7 +40,7 @@ jobs:
           GEONAMES_USERNAME: ${{ secrets.GEONAMES_USERNAME }}
           LOG_NWS_REQUESTS: 1
           PREFIXED_IDS_SALT: ${{ secrets.PREFIXED_IDS_SALT }}
-          RAILS_MAX_THREAD: 5
+          RAILS_MAX_THREADS: 5
           REDIS_URL: ${{ secrets.REDIS_URL }}
           SIMPLE_COV_ENABLED: ${{ secrets.SIMPLE_COV_ENABLED }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
