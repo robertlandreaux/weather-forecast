@@ -14,7 +14,7 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-if ENV.fetch("SIMPLE_COV_ENABLED", 0)
+if ENV["SIMPLE_COV_ENABLED"] == "1"
   require "simplecov"
   SimpleCov.start "rails"
 end
